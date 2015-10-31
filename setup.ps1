@@ -70,7 +70,7 @@ function install-myuniverse {
     info-withstyle 'Installing scoop'
     invoke-expression $webclient.downloadstring('https://get.scoop.sh/')
 
-    info-withstyle 'Reverting PATH variable'
+    info-withstyle 'Reverting user PATH variable'
     [environment]::setEnvironmentVariable('path', $oldPath, 'user')
 
     info-withstyle 'Installing scoop apps'
