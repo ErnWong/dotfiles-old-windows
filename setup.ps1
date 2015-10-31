@@ -126,7 +126,7 @@ function setup-dotfiles {
         if (test-path $linkname) {
             write-host "Item $linkname already exists."
             $shouldRemove = read-yesno 'Remove?'
-            if (!shouldRemove) {
+            if (!$shouldRemove) {
                 write-host "Skipping $linkname"
                 return
             }
@@ -134,17 +134,17 @@ function setup-dotfiles {
             remove-item $linkname
         }
         write-host "LN $args"
-        ln $target $linkname;
+        ln -s $target $linkname;
     }
 
     info-withstyle 'Hardlinking dotfiles'
 
     pushd $dotfilesdir
     foreach ($item in get-childitem $linkhomefiles) {
-        link-item -s $item.name $env:USERPROFILE
+        link-item $item.name "$env:USERPROFILE\$($item.basename)"
     }
     foreach ($item in get-childitem $linkappdatafiles) {
-        link-item -s $item.name $env:APPDATA
+        link-item $item.name "$env:APPDATA\$($item.basename)"
     }
     foreach ($item in get-childitem $linkcustomfiles) {
         $destfile = "$($item.basename).$linkdestExtension"
@@ -154,7 +154,7 @@ function setup-dotfiles {
         }
         $destination = get-content $destfile
         $destination = [environment]::expandEnvironmentVariables($destination)
-        link-item -s $item.name $destination
+        link-item $item.name $destination
     }
     popd
 
