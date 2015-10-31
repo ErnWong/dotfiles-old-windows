@@ -31,7 +31,7 @@ function read-yesno($prompt) {
 }
 
 function ensure-path($path) {
-    if (test-path path) {return}
+    if (test-path $path) {return}
     new-item -itemtype directory -path $path
 }
 
