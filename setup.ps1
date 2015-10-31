@@ -54,6 +54,9 @@ function ensure-path($path) {
 function install-myuniverse {
 
     function ensure-install($app) {
+        # in case it's already installed:
+        scoop update $app
+        if ($LASTEXITCODE -eq 0) {return}
         $i = 4
         while($i -gt 0) {
             scoop install $app
@@ -66,6 +69,11 @@ function install-myuniverse {
         error-withstyle "Skipping app $app"
     }
     function ensure-bucketadd($bucket, $url) {
+        $isinstalled = (scoop bucket list) -match $bucket
+        if ($isinstalled) {
+            scoop update
+            return
+        }
         $i = 4
         while($i -gt 0) {
             scoop bucket add $bucket $url
