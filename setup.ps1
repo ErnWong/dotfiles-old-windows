@@ -181,7 +181,7 @@ function download-dotfiles {
             return
         }
         write-host "Deleting and recreating $dotfilesdir"
-        remove-item -recurse $dotfilesdir
+        sudo remove-item -recurse $dotfilesdir
         new-item -itemtype directory $dotfilesdir
     }
     git clone 'https://github.com/ErnWong/dotfiles.git' $dotfilesdir
@@ -200,9 +200,9 @@ function setup-dotfiles {
                 return
             }
             write-host "Deleting $linkname"
-            remove-item $linkname
+            sudo remove-item $linkname
         }
-        write-host "LN $target $linkname"
+        write-host "Symlinking $linkname to $target"
         sudo ln -s $target $linkname;
     }
 
