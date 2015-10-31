@@ -111,8 +111,8 @@ function install-myuniverse {
     info-withstyle 'Downloading dotfiles'
     git clone 'https://github.com/ErnWong/dotfiles.git' $dotfilesdir
 
-    . "$dotfilesdir\setup" dotfiles
-    . "$dotfilesdir\setup" vim
+    . "$dotfilesdir\setup" -dotfiles
+    . "$dotfilesdir\setup" -vim
 
     info-withstyle 'Done.'
     info-withstyle 'Your new home should be ready now. Enjoy!'
