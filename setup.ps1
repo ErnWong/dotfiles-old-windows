@@ -188,7 +188,7 @@ function setup-dotfiles {
     }
     foreach ($item in get-childitem $linkcustomfiles) {
         $destfile = "$($item.basename).$linkdestExtension"
-        if (!test-path $destfile) {
+        if (!(test-path $destfile)) {
             write-host "Can't find $destfile" -foregroundcolor yellow
             write-host "Skipping $(item.name)" -foregroundcolor yellow
         }
