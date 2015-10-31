@@ -165,5 +165,5 @@ function setup-vim {
 }
 
 if ($dotfiles) { setup-dotfiles }
-else if ($vim) { setup-vim}
+elseif ($vim) { setup-vim}
 else { install-myuniverse }
