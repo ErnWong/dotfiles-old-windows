@@ -14,12 +14,28 @@ $linkdestExtension = "linkdestination"
 
 $errorActionPreference = 'stop'
 
-function info-withstyle($msg) {
+function echo-withstyle($msg, $color) {
     # just because
     write-host -nonewline '['
-    write-host -nonewline 'dotfiles' -foregroundcolor Blue
+    write-host -nonewline 'dotfiles' -foregroundcolor blue
     write-host -nonewline '] '
-    write-host $msg
+    write-host $msg -foregroundcolor $color
+}
+
+function info-withstyle($msg) {
+    echo-withstyle $msg white
+}
+
+function success-withstyle($msg) {
+    echo-withstyle $msg green
+}
+
+function warn-withstyle($msg) {
+    echo-withstyle $msg yellow
+}
+
+function error-withstyle($msg) {
+    echo-withstyle $msg red
 }
 
 function read-yesno($prompt) {
@@ -42,17 +58,40 @@ function install-myuniverse {
         while($i -gt 0) {
             scoop install $app
             if ($LASTEXITCODE -eq 0) {return}
+            warn-withstyle "Failed installing $app. Retrying..."
             scoop uninstall $app
             $i--
         }
+        error-withstyle "Ran out of patience"
+        error-withstyle "Skipping app $app"
     }
     function ensure-bucketadd($bucket, $url) {
         $i = 4
         while($i -gt 0) {
             scoop bucket add $bucket $url
             if ($LASTEXITCODE -eq 0) {return}
+            warn-withstyle "Failed. Retrying..."
             $i--
         }
+        error-withstyle "Ran out of patience"
+        error-withstyle "Skipping bucket $bucket ($url)"
+    }
+    function ensure-iex($url) {
+        $i = 4
+        while($i -gt 0) {
+            try {
+                iex (new-object net.webclient).downloadstring($url)
+            }
+            catch {
+                $i--
+                write-host $_.exception.tostring() -foregroundcolor darkred
+                warn-withstyle "Something failed. Retrying..."
+                continue
+            }
+            return
+            # speghetti, yum...
+        }
+        error-withstyle "Ran out of patience, skipping $url"
     }
 
     info-withstyle 'Let the installation begin!!'
@@ -68,7 +107,7 @@ function install-myuniverse {
     $oldPath = [environment]::getEnvironmentVariable('path', 'user')
 
     info-withstyle 'Installing scoop'
-    invoke-expression $webclient.downloadstring('https://get.scoop.sh/')
+    ensure-iex('https://get.scoop.sh/')
 
     info-withstyle 'Reverting user PATH variable'
     [environment]::setEnvironmentVariable('path', $oldPath, 'user')
@@ -104,7 +143,7 @@ function install-myuniverse {
     ensure-install 'vim-ernwong';
 
     info-withstyle 'Installing PsGet';
-    invoke-expression $webclient.downloadstring('http://psget.net/GetPsGet.ps1')
+    ensure-iex('http://psget.net/GetPsGet.ps1')
 
     info-withstyle 'Installing PsGet modules'
     install-module posh-git
@@ -115,8 +154,8 @@ function install-myuniverse {
     . "$dotfilesdir\setup" -dotfiles
     . "$dotfilesdir\setup" -vim
 
-    info-withstyle 'Done.'
-    info-withstyle 'Your new home should be ready now. Enjoy!'
+    success-withstyle 'Done.'
+    success-withstyle 'Your new home should be ready now. Enjoy!'
 }
 
 function setup-dotfiles {
@@ -150,8 +189,8 @@ function setup-dotfiles {
     foreach ($item in get-childitem $linkcustomfiles) {
         $destfile = "$($item.basename).$linkdestExtension"
         if (!test-path $destfile) {
-            write-host "Can't find $destfile"
-            write-host "Skipping $(item.name)"
+            write-host "Can't find $destfile" -foregroundcolor yellow
+            write-host "Skipping $(item.name)" -foregroundcolor yellow
         }
         $destination = get-content $destfile
         $destination = [environment]::expandEnvironmentVariables($destination)
