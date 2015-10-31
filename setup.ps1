@@ -151,7 +151,7 @@ function install-myuniverse {
     info-withstyle 'Downloading dotfiles'
     git clone 'https://github.com/ErnWong/dotfiles.git' $dotfilesdir
 
-    . "$dotfilesdir\setup" -dotfiles
+    sudo . "$dotfilesdir\setup" -dotfiles
     . "$dotfilesdir\setup" -vim
 
     success-withstyle 'Done.'
@@ -174,7 +174,7 @@ function setup-dotfiles {
             remove-item $linkname
         }
         write-host "LN $args"
-        sudo ln -s $target $linkname;
+        ln -s $target $linkname;
     }
 
     info-withstyle 'Hardlinking dotfiles'
