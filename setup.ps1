@@ -103,7 +103,7 @@ function install-myuniverse {
     ensure-install 'vim-ernwong';
 
     info-withstyle 'Installing PsGet';
-    invoke-expression webclient.downloadstring('http://psget.net/GetPsGet.ps1')
+    invoke-expression $webclient.downloadstring('http://psget.net/GetPsGet.ps1')
 
     info-withstyle 'Installing PsGet modules'
     install-module posh-git
