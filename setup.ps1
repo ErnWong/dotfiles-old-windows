@@ -75,14 +75,15 @@ function install-myuniverse {
 
     info-withstyle 'Installing scoop apps'
 
-    ensure-bucketadd 'extras';
-    ensure-bucketadd 'ernwong' 'https://github.com/ErnWong/scoop-bucket.git'
-
     # utils
     ensure-install '7zip';
     ensure-install 'cowsay';
     ensure-install 'ln';
     ensure-install 'git';
+
+    # buckets
+    ensure-bucketadd 'extras';
+    ensure-bucketadd 'ernwong' 'https://github.com/ErnWong/scoop-bucket.git'
 
     # build tools
     ensure-install 'gcc';
