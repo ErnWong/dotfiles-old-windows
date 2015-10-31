@@ -81,10 +81,10 @@ function install-myuniverse {
     ensure-install 'ln';
     ensure-install 'git';
 
-    # buckets
+    # buckets (requires git)
     ensure-bucketadd 'extras';
     ensure-bucketadd 'ernwong' 'https://github.com/ErnWong/scoop-bucket.git'
-
+<#debug
     # build tools
     ensure-install 'gcc';
     ensure-install 'msys';
@@ -98,7 +98,7 @@ function install-myuniverse {
     ensure-install 'perl';
     ensure-install 'latex';
     ensure-install 'pandoc';
-
+#>
     ensure-install 'conemu';
     ensure-install 'vim-ernwong';
 
