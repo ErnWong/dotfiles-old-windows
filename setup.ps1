@@ -41,7 +41,7 @@ function install-myuniverse {
         $i = 4
         while($i -gt 0) {
             scoop install $app
-            if ($?) {return}
+            if ($LASTEXITCODE -eq 0) {return}
             scoop uninstall $app
             $i--
         }
@@ -50,7 +50,7 @@ function install-myuniverse {
         $i = 4
         while($i -gt 0) {
             scoop bucket add $bucket $url
-            if ($?) {return}
+            if ($LASTEXITCODE -eq 0) {return}
             $i--
         }
     }
