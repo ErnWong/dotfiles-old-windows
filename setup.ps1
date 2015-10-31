@@ -88,6 +88,7 @@ function install-myuniverse {
         $i = 4
         while($i -gt 0) {
             try {
+                write-host "Installing from url: $url"
                 iex (new-object net.webclient).downloadstring($url)
             }
             catch {
