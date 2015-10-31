@@ -78,6 +78,7 @@ function install-myuniverse {
     # utils
     ensure-install '7zip';
     ensure-install 'cowsay';
+    ensure-install 'sudo';
     ensure-install 'ln';
     ensure-install 'git';
 
@@ -134,7 +135,7 @@ function setup-dotfiles {
             remove-item $linkname
         }
         write-host "LN $args"
-        ln -s $target $linkname;
+        sudo ln -s $target $linkname;
     }
 
     info-withstyle 'Hardlinking dotfiles'
