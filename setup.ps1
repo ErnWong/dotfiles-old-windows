@@ -103,6 +103,11 @@ function install-myuniverse {
         error-withstyle "Ran out of patience, skipping $url"
     }
 
+    function is-dirempty($path) {
+        $info = gci $path | measure-object
+        return $info.count -eq 0
+    }
+
     info-withstyle 'Let the installation begin!!'
 
     info-withstyle 'Creating directories'
@@ -157,14 +162,29 @@ function install-myuniverse {
     info-withstyle 'Installing PsGet modules'
     install-module posh-git
 
-    info-withstyle 'Downloading dotfiles'
-    git clone 'https://github.com/ErnWong/dotfiles.git' $dotfilesdir
-
-    . "$dotfilesdir\setup" -dotfiles
-    . "$dotfilesdir\setup" -vim
+    download-dotfiles
+    setup-dotfiles
+    setup-vim
 
     success-withstyle 'Done.'
     success-withstyle 'Your new home should be ready now. Enjoy!'
+}
+
+function download-dotfiles {
+    info-withstyle 'Downloading dotfiles'
+    if (!(is-dirempty $dotfilesdir))
+    {
+        write-host "Dotfiles directory already exists at $dotfilesdir"
+        $shouldRemove = read-yesno 'Remove?'
+        if (!shouldRemove) {
+            write-host "Skipping dotfiles download"
+            return
+        }
+        write-host "Deleting and recreating $dotfilesdir"
+        remove-item -recurse $dotfilesdir
+        new-item -itemtype directory $dotfilesdir
+    }
+    git clone 'https://github.com/ErnWong/dotfiles.git' $dotfilesdir
 }
 
 function setup-dotfiles {
@@ -179,7 +199,7 @@ function setup-dotfiles {
                 write-host "Skipping $linkname"
                 return
             }
-            write-host "RM $linkname"
+            write-host "Deleting $linkname"
             remove-item $linkname
         }
         write-host "LN $target $linkname"
