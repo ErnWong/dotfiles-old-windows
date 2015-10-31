@@ -176,7 +176,7 @@ function download-dotfiles {
     {
         write-host "Dotfiles directory already exists at $dotfilesdir"
         $shouldRemove = read-yesno 'Remove?'
-        if (!shouldRemove) {
+        if (!$shouldRemove) {
             write-host "Skipping dotfiles download"
             return
         }
