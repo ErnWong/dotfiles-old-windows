@@ -182,7 +182,7 @@ function setup-dotfiles {
             write-host "RM $linkname"
             remove-item $linkname
         }
-        write-host "LN $args"
+        write-host "LN $target $linkname"
         sudo ln -s $target $linkname;
     }
 
