@@ -180,9 +180,8 @@ function download-dotfiles {
             write-host "Skipping dotfiles download"
             return
         }
-        write-host "Deleting and recreating $dotfilesdir"
+        write-host "Deleting contents of $dotfilesdir"
         sudo gci -recurse $dotfilesdir | remove-item -force
-        new-item -itemtype directory $dotfilesdir
     }
     git clone 'https://github.com/ErnWong/dotfiles.git' $dotfilesdir
 }
