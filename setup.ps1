@@ -181,7 +181,7 @@ function download-dotfiles {
             return
         }
         write-host "Deleting contents of $dotfilesdir"
-        sudo gci -recurse $dotfilesdir | remove-item -force
+        gci -recurse $dotfilesdir | remove-item -force
     }
     git clone 'https://github.com/ErnWong/dotfiles.git' $dotfilesdir
 }
@@ -202,14 +202,14 @@ function setup-dotfiles {
 
             # if is folder
             if (test-path -pathtype container $linkname) {
-                sudo "gci $linkname | remove-item -force; remove-item $linkname"
+                "gci $linkname | remove-item -force; remove-item $linkname"
             }
             else {
-                sudo remove-item -force $linkname
+                remove-item -force $linkname
             }
         }
         write-host "Symlinking $linkname to $target"
-        sudo ln -s $target $linkname;
+        ln -s $target $linkname;
     }
 
     info-withstyle 'Hardlinking dotfiles'
