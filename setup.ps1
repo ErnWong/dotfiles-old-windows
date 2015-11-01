@@ -181,7 +181,8 @@ function download-dotfiles {
             return
         }
         write-host "Deleting contents of $dotfilesdir"
-        gci -recurse $dotfilesdir | remove-item -force
+        remove-item -recurse -force $dotfilesdir
+        new-item $dotfilesdir -itemtype directory
     }
     git clone 'https://github.com/ErnWong/dotfiles.git' $dotfilesdir
 }
@@ -202,7 +203,7 @@ function setup-dotfiles {
 
             # if is folder
             if (test-path -pathtype container $linkname) {
-                "gci $linkname | remove-item -force; remove-item $linkname"
+                remove-item -recurse -force $linkname
             }
             else {
                 remove-item -force $linkname
