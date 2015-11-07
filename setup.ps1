@@ -51,6 +51,11 @@ function ensure-path($path) {
     new-item -itemtype directory -path $path
 }
 
+function is-dirempty($path) {
+    $info = gci $path | measure-object
+    return $info.count -eq 0
+}
+
 function install-myuniverse {
 
     function ensure-install($app) {
@@ -101,11 +106,6 @@ function install-myuniverse {
             # speghetti, yum...
         }
         error-withstyle "Ran out of patience, skipping $url"
-    }
-
-    function is-dirempty($path) {
-        $info = gci $path | measure-object
-        return $info.count -eq 0
     }
 
     info-withstyle 'Let the installation begin!!'
