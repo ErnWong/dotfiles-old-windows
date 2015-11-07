@@ -126,6 +126,12 @@ function install-myuniverse {
     info-withstyle 'Reverting user PATH variable'
     [environment]::setEnvironmentVariable('path', $oldPath, 'user')
 
+    info-withstyle 'Ensuring non-empty PATH'
+    if ([string][environment]::getEnvironmentVariable('path', 'user') -eq '') {
+        info-withstyle 'Adding dummy path to user PATH'
+        [environment]::setEnvironmentVariable('path', 'C:\THISSHOULDNEVEREVEREXISTIhope', 'user');
+    }
+
     info-withstyle 'Installing scoop apps'
 
     # utils
