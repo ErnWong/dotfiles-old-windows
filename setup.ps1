@@ -178,7 +178,7 @@ function install-myuniverse {
 
 function download-dotfiles {
     info-withstyle 'Downloading dotfiles'
-    if (!(is-dirempty $dotfilesdir))
+    if ((test-path $dotfilesdir) -and !(is-dirempty $dotfilesdir))
     {
         write-host "Dotfiles directory already exists at $dotfilesdir"
         $shouldRemove = read-yesno 'Remove?'
