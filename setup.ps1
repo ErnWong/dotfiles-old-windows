@@ -242,7 +242,7 @@ function setup-dotfiles {
         $destfile = "$($item.fullname).$linkdestExtension"
         if (!(test-path $destfile)) {
             write-host "Can't find $destfile" -foregroundcolor yellow
-            write-host "Skipping $(item.fullname)" -foregroundcolor yellow
+            write-host "Skipping $($item.fullname)" -foregroundcolor yellow
         }
         $destination = get-content $destfile
         $destination = [environment]::expandEnvironmentVariables($destination)
