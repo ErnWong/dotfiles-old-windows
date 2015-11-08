@@ -7,9 +7,9 @@ $scoopdir = "$env:USERPROFILE\Scoop"
 $projectdir = "$env:USERPROFILE\Projects"
 $dotfilesdir = "$env:USERPROFILE\Projects\dotfiles"
 
-$linkhomefiles = "*.linktohome"
-$linkappdatafiles = "*.linktoappdata"
-$linkcustomfiles = "*.linktocustom"
+$linkhomefiles = "home\*"
+$linkappdatafiles = "appdata\*"
+$linkcustomfiles = "*custom\*"
 $linkdestExtension = "linkdestination"
 
 $errorActionPreference = 'stop'
@@ -233,13 +233,13 @@ function setup-dotfiles {
 
     pushd $dotfilesdir
     foreach ($item in get-childitem $linkhomefiles) {
-        link-item $item.name "$env:USERPROFILE\$($item.basename)"
+        link-item $item.name "$env:USERPROFILE\$($item.name)"
     }
     foreach ($item in get-childitem $linkappdatafiles) {
-        link-item $item.name "$env:APPDATA\$($item.basename)"
+        link-item $item.name "$env:APPDATA\$($item.name)"
     }
     foreach ($item in get-childitem $linkcustomfiles) {
-        $destfile = "$($item.basename).$linkdestExtension"
+        $destfile = "$($item.name).$linkdestExtension"
         if (!(test-path $destfile)) {
             write-host "Can't find $destfile" -foregroundcolor yellow
             write-host "Skipping $(item.name)" -foregroundcolor yellow
