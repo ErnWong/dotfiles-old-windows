@@ -196,6 +196,7 @@ function download-dotfiles {
 function setup-dotfiles {
 
     function link-item($target, $linkname) {
+        $linkname = resolve-path $linkname
         $destdir = split-path $linkname
         ensure-path $destdir
         if (test-path $linkname) {
