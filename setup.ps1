@@ -239,7 +239,9 @@ function setup-dotfiles {
         link-item $item.fullname "$env:APPDATA\$($item.name)"
     }
     foreach ($item in get-childitem $linkcustomfiles) {
-        if ($item.extension -eq $linkdestextension) continue
+        if ($item.extension -eq $linkdestextension) {
+            continue
+        }
         $destfile = "$($item.fullname).$linkdestExtension"
         if (!(test-path $destfile)) {
             write-host "Can't find $destfile" -foregroundcolor yellow
