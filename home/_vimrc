@@ -6,10 +6,9 @@ set nocompatible
 
 filetype off                 " required
 " set the runtime path to include Vundle and initialise
-set rtp+=$VIMRUNTIME/../vimfiles/bundle/neobundle.vim
-call neobundle#begin('$VIMRUNTIME/../vimfiles/bundle')
+set runtimepath+=~/vimfiles/bundle/neobundle.vim
+call neobundle#begin(expand('~/vimfiles/bundle'))
 
-" let Vundle manage Vundle, required
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add plugins here
@@ -95,9 +94,9 @@ set cursorline
 " behave mswin
 
 " Backup/Persistance Settings
-set undodir=$VIMRUNTIME/../tmp/undo/
-set backupdir=$VIMRUNTIME/../tmp/backup/,.
-set directory=$VIMRUNTIME/../tmp/swap/,.
+set undodir=~/vimfiles/tmp/undo/
+set backupdir=~/vimfiles/tmp/backup/,.
+set directory=~/vimfiles/tmp/swap/,.
 set backup
 set writebackup
 set noswapfile
