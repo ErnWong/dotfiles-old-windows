@@ -6,10 +6,9 @@ set nocompatible
 
 filetype off                 " required
 " set the runtime path to include Vundle and initialise
-set rtp+=$VIMRUNTIME/../vimfiles/bundle/neobundle.vim
-call neobundle#begin('$VIMRUNTIME/../vimfiles/bundle')
+set runtimepath+=~/vimfiles/bundle/neobundle.vim
+call neobundle#begin(expand('~/vimfiles/bundle'))
 
-" let Vundle manage Vundle, required
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add plugins here
