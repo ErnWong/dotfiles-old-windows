@@ -226,7 +226,7 @@ function setup-dotfiles {
             error-withstyle "MKLINK failed. Exit code: $LASTEXITCODE`n$output"
         }
         else {
-            info-withstyle $output
+            write-host $output
         }
     }
 
