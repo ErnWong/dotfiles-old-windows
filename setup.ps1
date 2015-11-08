@@ -144,20 +144,8 @@ function install-myuniverse {
 
     $webclient = new-object net.webclient
 
-    info-withstyle 'Saving PATH variable for later'
-    $oldPath = [environment]::getEnvironmentVariable('path', 'user')
-
     info-withstyle 'Installing scoop'
     ensure-iex('https://get.scoop.sh/')
-
-    info-withstyle 'Reverting user PATH variable'
-    [environment]::setEnvironmentVariable('path', $oldPath, 'user')
-
-    info-withstyle 'Ensuring non-empty PATH'
-    if ([string][environment]::getEnvironmentVariable('path', 'user') -eq '') {
-        info-withstyle 'Adding dummy path to user PATH'
-        [environment]::setEnvironmentVariable('path', 'C:\THISSHOULDNEVEREVEREXISTIhope', 'user');
-    }
 
     info-withstyle 'Installing scoop apps'
 
