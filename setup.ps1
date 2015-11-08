@@ -56,6 +56,33 @@ function is-dirempty($path) {
     return $info.count -eq 0
 }
 
+function remove-smartly($path) {
+
+    $exists = test-path $path
+    if (!($exists)) { return }
+
+    $isdir = test-path -pathtype container $path
+    $file = get-item -force $path
+    $issymlink = [bool]($file.attributes -band [io.fileattributes]::reparsePoint)
+
+    if ($isdir -and $issymlink) {
+        $output = cmd /c "rmdir $path" 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            error-withstyle "RMDIR failed. Exit code:$LASTEXITCODE`n$output"
+        }
+        else {
+            write-host $output
+        }
+    }
+    else if ($isdir) {
+        remove-item -recurse -force $path
+    }
+    else {
+        remove-item -force $path
+    }
+
+}
+
 function install-myuniverse {
 
     function ensure-install($app) {
@@ -188,7 +215,7 @@ function download-dotfiles {
             return
         }
         write-host "Deleting contents of $dotfilesdir"
-        remove-item -recurse -force $dotfilesdir
+        remove-smartly $dotfilesdir
         new-item $dotfilesdir -itemtype directory
     }
     git clone --recursive 'https://github.com/ErnWong/dotfiles.git' $dotfilesdir
@@ -207,14 +234,7 @@ function setup-dotfiles {
                 return
             }
             write-host "Deleting $linkname"
-
-            # if is folder
-            if (test-path -pathtype container $linkname) {
-                remove-item -recurse -force $linkname
-            }
-            else {
-                remove-item -force $linkname
-            }
+            remove-smartly $linkname
         }
         write-host "Symlinking $linkname to $target"
         $mklink_arg = ''
