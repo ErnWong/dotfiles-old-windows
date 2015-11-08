@@ -216,7 +216,17 @@ function setup-dotfiles {
             }
         }
         write-host "Symlinking $linkname to $target"
-        ln -s $target $linkname;
+        $mklink_arg = ''
+        if (test-path -pathtype container $target) {
+            $mklink_arg = '/d'
+        }
+        $output = cmd /c "mklink $mklink_arg `"$linkname`" `"$target`"" 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            error-withstyle "MKLINK failed. Exit code: $LASTEXITCODE`n$output"
+        }
+        else {
+            info-withstyle $output
+        }
     }
 
     info-withstyle 'Hardlinking dotfiles'
