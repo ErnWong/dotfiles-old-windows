@@ -74,7 +74,7 @@ function remove-smartly($path) {
             write-host $output
         }
     }
-    else if ($isdir) {
+    elseif ($isdir) {
         remove-item -recurse -force $path
     }
     else {
