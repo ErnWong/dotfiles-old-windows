@@ -1,6 +1,6 @@
 #requires -version 3.0
 
-param([switch]$dotfiles, [switch]$vim)
+param([switch]$dotfiles)
 
 # note: $scoopdir is also configured inside profile.ps1
 $scoopdir = "$env:USERPROFILE\Scoop"
@@ -15,7 +15,7 @@ $linkdestExtension = "destination"
 $errorActionPreference = 'stop'
 
 function echo-withstyle($msg, $color) {
-    # just because
+    # because... um...
     write-host -nonewline '['
     write-host -nonewline 'dotfiles' -foregroundcolor blue
     write-host -nonewline '] '
@@ -170,7 +170,6 @@ function install-myuniverse {
 
     download-dotfiles
     setup-dotfiles
-    setup-vim
 
     success-withstyle 'Done.'
     success-withstyle 'Your new home should be ready now. Enjoy!'
@@ -256,11 +255,5 @@ function setup-dotfiles {
 
 }
 
-function setup-vim {
-    info-withstyle 'Opening vim for you to install plugins'
-    vim
-}
-
 if ($dotfiles) { setup-dotfiles }
-elseif ($vim) { setup-vim}
 else { install-myuniverse }
