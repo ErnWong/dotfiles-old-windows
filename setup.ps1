@@ -196,7 +196,6 @@ function download-dotfiles {
 function setup-dotfiles {
 
     function link-item($target, $linkname) {
-        $linkname = resolve-path $linkname
         $destdir = split-path $linkname
         ensure-path $destdir
         if (test-path $linkname) {
@@ -234,20 +233,20 @@ function setup-dotfiles {
 
     pushd $dotfilesdir
     foreach ($item in get-childitem $linkhomefiles) {
-        link-item $item.name "$env:USERPROFILE\$($item.name)"
+        link-item $item.fullname "$env:USERPROFILE\$($item.name)"
     }
     foreach ($item in get-childitem $linkappdatafiles) {
-        link-item $item.name "$env:APPDATA\$($item.name)"
+        link-item $item.fullname "$env:APPDATA\$($item.name)"
     }
     foreach ($item in get-childitem $linkcustomfiles) {
-        $destfile = "$($item.name).$linkdestExtension"
+        $destfile = "$($item.fullname).$linkdestExtension"
         if (!(test-path $destfile)) {
             write-host "Can't find $destfile" -foregroundcolor yellow
-            write-host "Skipping $(item.name)" -foregroundcolor yellow
+            write-host "Skipping $(item.fullname)" -foregroundcolor yellow
         }
         $destination = get-content $destfile
         $destination = [environment]::expandEnvironmentVariables($destination)
-        link-item $item.name $destination
+        link-item $item.fullname $destination
     }
     popd
 
