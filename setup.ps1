@@ -10,7 +10,7 @@ $dotfilesdir = "$env:USERPROFILE\Projects\dotfiles"
 $linkhomefiles = "home\*"
 $linkappdatafiles = "appdata\*"
 $linkcustomfiles = "*custom\*"
-$linkdestExtension = "linkdestination"
+$linkdestExtension = "destination"
 
 $errorActionPreference = 'stop'
 
