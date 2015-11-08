@@ -189,7 +189,7 @@ function download-dotfiles {
         remove-item -recurse -force $dotfilesdir
         new-item $dotfilesdir -itemtype directory
     }
-    git clone 'https://github.com/ErnWong/dotfiles.git' $dotfilesdir
+    git clone --recursive 'https://github.com/ErnWong/dotfiles.git' $dotfilesdir
 }
 
 function setup-dotfiles {
