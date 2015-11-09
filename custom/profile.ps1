@@ -36,6 +36,9 @@ function global:prompt {
     return " "
 }
 
+# Select utf-8 codepage
+chcp 65001 > $null
+
 # Start SSH agent via posh-git
 if ($gitStatus) {
     Start-SshAgent -Quiet
