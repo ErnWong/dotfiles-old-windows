@@ -32,7 +32,7 @@ function global:prompt {
         checkGit($pwd.ProviderPath)
     }
     $global:LASTEXITCODE = $realLASTEXITCODE
-    Write-Host "`nλ" -NoNewLine -ForegroundColor "DarkGray"
+    Write-Host "`n$([char]0x03BB)" -NoNewLine -ForegroundColor "DarkGray"
     return " "
 }
 
