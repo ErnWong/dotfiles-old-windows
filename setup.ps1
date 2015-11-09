@@ -156,6 +156,9 @@ function install-myuniverse {
     ensure-install 'ln';
     ensure-install 'git';
 
+    # https://github.com/lukesampson/scoop/issues/517
+    [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
+
     # buckets (requires git)
     ensure-bucketadd 'extras';
     ensure-bucketadd 'ernwong' 'https://github.com/ErnWong/scoop-bucket.git'
