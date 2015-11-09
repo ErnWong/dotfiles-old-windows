@@ -170,6 +170,7 @@ function install-myuniverse {
     # build tools
     ensure-install 'gcc';
     ensure-install 'msys';
+    ensure-install 'cmake';
 
     # TODO:
     # ensure-install 'gcc-arm-none-eabi';
