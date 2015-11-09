@@ -143,7 +143,7 @@ function install-myuniverse {
 
     info-withstyle 'Setting SCOOP variable'
     $env:SCOOP = $scoopdir
-    [environment]::setEnvironmentVariable('SCOOP', '$scoopdir', 'User')
+    [environment]::setEnvironmentVariable('SCOOP', $scoopdir, 'User')
 
     $webclient = new-object net.webclient
 
