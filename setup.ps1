@@ -138,9 +138,12 @@ function install-myuniverse {
     info-withstyle 'Let the installation begin!!'
 
     info-withstyle 'Creating directories'
-    $env:SCOOP = $scoopdir
     ensure-path $scoopdir
     ensure-path $projectdir
+
+    info-withstyle 'Setting SCOOP variable'
+    $env:SCOOP = $scoopdir
+    [environment]::setEnvironmentVariable('SCOOP', '$scoopdir', 'User')
 
     $webclient = new-object net.webclient
 
@@ -157,7 +160,7 @@ function install-myuniverse {
     ensure-install 'git';
 
     # https://github.com/lukesampson/scoop/issues/517
-    [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
+    [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'User')
 
     # buckets (requires git)
     ensure-bucketadd 'extras';
