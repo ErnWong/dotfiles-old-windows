@@ -157,6 +157,7 @@ function install-myuniverse {
     ensure-install 'cowsay';
     ensure-install 'sudo';
     ensure-install 'ln';
+    ensure-install 'openssh';
     ensure-install 'git';
 
     # https://github.com/lukesampson/scoop/issues/517
