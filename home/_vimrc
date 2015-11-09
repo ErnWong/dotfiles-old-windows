@@ -94,9 +94,9 @@ set cursorline
 " behave mswin
 
 " Backup/Persistance Settings
-set undodir=~/vimfiles/tmp/undo/
-set backupdir=~/vimfiles/tmp/backup/,.
-set directory=~/vimfiles/tmp/swap/,.
+set undodir=~/vimfiles/undo/
+set backupdir=~/vimfiles/backup/,.
+set directory=~/vimfiles/swap/,.
 set backup
 set writebackup
 set noswapfile
