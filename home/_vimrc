@@ -59,7 +59,6 @@ NeoBundle 'editorconfig/editorconfig-vim'
 
 " YCM: {{{
 let g:neobundle#install_process_timeout = 1500
-let g:ycm_global_ycm_extra_conf = $VIMRUNTIME . "/../../DotFiles/.ycm_extra_conf.py"
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 " }}}
