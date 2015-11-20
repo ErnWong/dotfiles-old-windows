@@ -246,7 +246,7 @@ function setup-dotfiles {
         }
     }
 
-    info-withstyle 'Hardlinking dotfiles'
+    info-withstyle 'Symlinking dotfiles'
 
     pushd $dotfilesdir
     foreach ($item in get-childitem $linkhomefiles) {
