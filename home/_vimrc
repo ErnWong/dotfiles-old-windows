@@ -95,6 +95,8 @@ set number
 set relativenumber
 set numberwidth=4
 set cursorline
+" For now, until I have time to master this...
+set backspace=indent,eol,start
 
 " source $VIMRUNTIME/vimrc_example.vim
 " source $VIMRUNTIME/mswin.vim
