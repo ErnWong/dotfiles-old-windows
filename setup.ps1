@@ -184,6 +184,7 @@ function install-myuniverse {
     ensure-install 'latex';
     ensure-install 'pandoc';
 
+    ensure-install 'putty';
     ensure-install 'conemu';
     ensure-install 'vim-ernwong';
 
