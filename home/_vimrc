@@ -94,7 +94,9 @@ set expandtab
 set number
 set relativenumber
 set numberwidth=4
+set scrolloff=4
 set cursorline
+set breakindent
 " For now, until I have time to master this...
 set backspace=indent,eol,start
 
@@ -150,6 +152,7 @@ set noshowmode
 let g:airline_powerline_fonts = 1
 set encoding=utf-8
 
+set lazyredraw
 if !empty("CONEMUBUILD")
     set termencoding=utf8
     set term=xterm
